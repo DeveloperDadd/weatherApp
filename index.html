@@ -18,6 +18,47 @@
     <link rel="stylesheet" href="css/style.css" />
   </head>
   <body>
+    <div id="main" class="container-fluid">
+        
+       <!-- HEADER -->
+       <div class="container">
+        <div class="container-fluid mb-3">
+            <h1 class="text-center text-primary">Weather app</h1>
+        <div class="row .d-flex justify-content-center">
+            <input id="newZipcode" class="text-center col-6" placeholder="Put in a 5 digit zipcode"></input>
+            <button id="button" class="btn btn-primary col-6">Get Weather</button>
+        </div>
+       </div>
+        
+        
+       <!-- CITY-->
+       <div class="container-fluid border border-dark mb-3">
+        <h2 class="text-center text-primary bg-warning">City</h2>
+        <p id="city" class="text-center">City returned here</p>
+       </div>
+       
+       <!-- TEMPERATURE -->
+       <div class="container-fluid border border-dark mb-3">
+        <h2 class="text-center text-primary bg-warning">Temperature</h2>
+        <div class="container">
+        <div class="row">
+            <p id="kelvin" class="col-4 text-center">Kelvin</p>
+            <p id="celsius" class="col-4 text-center">Celsius</p>
+            <p id="fahrenheit" class="col-4 text-center">Fahrenheit</p>
+        </div> 
+        </div> 
+       </div>
+
+        
+       <!-- OTHER INFO -->
+       <div class="container-fluid border border-dark">
+        <h2 class="text-center text-primary bg-warning">Other info</h2>
+        <div class="container-fluid">
+            <img id="icon" src="" alt="Icon image reflective of the current weather condition">
+        </div>
+       </div>
+    </div> 
+</div>
 
 
     <script
