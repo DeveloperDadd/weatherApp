@@ -35,7 +35,7 @@
             - Click functionality - event listener waiting for click
             - Necessary step for app to work correctly
 4. **weather:**
-      * Will be stored as an object
+      * Will be stored as an object retrieved from API in JSON format
       * The property values will be returned from the API upon user activation
       * Displays only after user correctly inputs a zipcode and clicks 'button'
          * Properties: 
@@ -56,20 +56,20 @@
               - Condition property with current condition as value
               - Other info property to display fetched image as value
 6. **currentLocation:** (for stretch goal)
-      * Use a geo tracking API to obtain user's current location and store in this variable
+      * Use a geo tracking API to obtain user's current location and store in this variable as JSON
       * Use a fetch AXIOS command to obtain current weather and update the weather object based upon variable's value 
           * Properties: 
               - Is user's current location
               - App's intial display will display the weather based on their current location
 7. **fahrenheit:**
       * Temperature stored in fahrenheit
-      * Either received from the weather API or converted from Celsius using a function (not sure haven't looked in depth at API yet)
+      * Either received from the weather API using object .notation from JSON or converted from Celsius using a function (not sure haven't looked in depth at API yet)
 8. **celsius:**
       * Temperature stored in celsius
-      * Either received from the weather API or converted from Celsius using a function (not sure haven't looked in depth at API yet)
+      * Use object .notation to retrieve
 9. **kelvin:**
       * Temperature stored in kelvin
-      * Either received from the weather API or converted from Celsius using a function (not sure haven't looked in depth at API yet)  
+      * Either received from the weather API using object .notation from JSON or converted from Celsius using a function (not sure haven't looked in depth at API yet)  
 
 ## FUNCTIONALITY :               
               
