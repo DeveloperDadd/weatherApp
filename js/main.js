@@ -1,30 +1,23 @@
 //VARIABLES
 let apiKey = c097438b59289f230ebfc5b099c90073;
 let button = document.getElementById('button');
-let zipcode;
-let city;
-let celsius;
-let fahrenheit;
-let kelvin;
-let icon;
-let weather; 
+let zipcode = document.getElementById("zipcode");
+let cityDisplay = document.getElementById("cityDisplay");
+let celsius = document.getElementById("celsius");
+let fahrenheit = document.getElementById("fahrenheit");
+let kelvin = document.getElementById("kelvin");
+let icon = document.getElementById("iconDisplay");
+const apiURL = "https://api.openweathermap.org";
+let apipath = "/data/2.5/weather";
 
 //Use AXIOS to get data
 import axios from 'axios';
+const axios = require('axios'.default);
 
 // Make a request for a user with a given ID
-axios.get()
-  .then(function (response) {
-    // handle success
-    console.log(response);
-  })
-  .catch(function (error) {
-    // handle error
-    console.log(error);
-  })
-  .finally(function () {
-    // always executed
-  });
+function getWeatherData() {
+  let weatherData = {};
+}
 
 
 //EVENT LISTENERS
