@@ -16,13 +16,12 @@ button.addEventListener('click', getWeatherData); //This event listener also nee
 //FUNCTIONS 
 
 function checkZipcode() {
-    
-    if (zipcode.length !== 5) {
-        alert('Error: please enter valid zipcode');
-    } else {
-        console.log('valid zip code, now GET data')
-        return zipcode;
-    }
+  if (zipcode.length !== 5) {
+    alert('Error: please enter valid zipcode');
+  } else {
+      console.log('valid zip code, now GET data')
+      return zipcode;
+  }
 };
 
 //Use AXIOS to get data
