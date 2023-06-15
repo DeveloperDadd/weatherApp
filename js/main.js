@@ -1,7 +1,7 @@
 //VARIABLES
 let apiKey = 'c097438b59289f230ebfc5b099c90073';
 let button = document.getElementById('button');
-let zipcode;
+let zipcode = document.getElementById("zipcode").value;
 let cityDisplay = document.getElementById("cityDisplay");
 let celsius = document.getElementById("celsius");
 let fahrenheit = document.getElementById("fahrenheit");
@@ -16,7 +16,7 @@ button.addEventListener('click', getWeatherData); //This event listener also nee
 //FUNCTIONS 
 
 function checkZipcode() {
-    let zipcode = document.getElementById("zipcode").value;
+    
     if (zipcode.length !== 5) {
         alert('Error: please enter valid zipcode');
     } else {
