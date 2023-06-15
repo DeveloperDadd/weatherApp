@@ -26,30 +26,35 @@ function checkZipcode() {
 
 //Use AXIOS to get data
 import axios from 'axios';
-const axios = require('axios'.default);
 
 // Make a request from the weather API using base url, zipcode, and apikey
+
 function getWeatherData() {
   let weatherData = {};
 
   try {
-    let option = {
+    let options = {
       baseURL: apiURL,
       params: {
         zip: zipcode,
         appid: apiKey
       }
     };
-    weatherData = axios.get(apipath, options);
-    
+    weatherData = axios.get(apipath, options)
+      .then(response => {
+        let data = response.data;
+        console.log(data);
+        weatherData = data;
+      })
+      .catch(error => {
+        //returns an error if there is one
+        alert('Error: invalid zipcode, could not fetch request. Please enter a valid zipcode');
+        console.log("Error in the API call, need to debug");
+      })
+      .finally(() => {
+        console.log(weatherData);
+      });
   }
-
-  catch (error) {
-    //returns an error if there is one
-    alert('Error: invalid zipcode, could not fetch request please enter valid zipcode');
-    console.log("Error in the API call, need to debug");
-  };
-  return weatherData;
 }
 
 //CONVERSION FUNCTIONS
