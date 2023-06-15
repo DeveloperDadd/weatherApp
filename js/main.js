@@ -42,7 +42,8 @@ function getWeatherData() {
         appid: apiKey
       }
     };
-    weatherData = await axios.get(apipath, options)
+    weatherData = await axios.get(apipath, options);
+    
   }
 
   catch (error) {
