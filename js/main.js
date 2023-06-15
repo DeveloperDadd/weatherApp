@@ -11,11 +11,10 @@ const apiURL = "https://api.openweathermap.org";
 let apipath = "/data/2.5/weather";
 
 //EVENT LISTENERS
-button.addEventListener('click', checkZipcode); //This event listener also needs to update page by GET weather using AXIOS, will need to update upon API fetch
-
-
+button.addEventListener('click', getWeatherData); //This event listener also needs to update page by GET weather using AXIOS, will need to update upon API fetch
 
 //FUNCTIONS 
+
 function checkZipcode() {
     let zipcode = document.getElementById("zipcode").value;
     if (zipcode.length !== 5) {
@@ -38,16 +37,17 @@ function getWeatherData() {
     let option = {
       baseURL: apiURL,
       params: {
-        zip: zipcode;
+        zip: zipcode,
         appid: apiKey
       }
     };
-    weatherData = await axios.get(apipath, options);
+    weatherData = axios.get(apipath, options);
     
   }
 
   catch (error) {
     //returns an error if there is one
+    alert('Error: invalid zipcode, could not fetch request please enter valid zipcode');
     console.log("Error in the API call, need to debug");
   };
   return weatherData;
