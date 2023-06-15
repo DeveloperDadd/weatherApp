@@ -24,9 +24,6 @@ function checkZipcode() {
   }
 };
 
-//Use AXIOS to get data
-import axios from 'axios';
-
 // Make a request from the weather API using base url, zipcode, and apikey
 
 function getWeatherData() {
