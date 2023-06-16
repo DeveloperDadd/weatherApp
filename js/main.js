@@ -12,9 +12,19 @@ let apipath = "/data/2.5/weather";
 
 
 //EVENT LISTENERS
-button.addEventListener('click', getWeatherData); //This event listener also needs to update page by GET weather using AXIOS, will need to update upon API fetch
-
+button.addEventListener('click', updateUI); //This event listener also needs to update page by GET weather using AXIOS, will need to update upon API fetch
+userInput.addEventListener('keypress', (event) => {
+  if(event.key === "Enter") {
+    return updateUI;
+  }
+});
 //FUNCTIONS 
+
+//MAIN FUNCTION TO UPDATE PAGE:
+async function updateUI() {
+  weatherData = await getWeatherData();
+  updateText;
+}
 
 function checkZipcode() {
   let zipcode = zipcodeInput.value;
@@ -56,6 +66,17 @@ function getWeatherData() {
     });
   }
 };
+
+// update HTML elements accordingly
+function updateText() {
+  cityDisplay.textcontent = weatherData.name;
+  kelvin.textContent = weatherData.main.temp;
+  celsius.textContent = tempToCelsius(weatherData.main.temp);
+  fahrenheit.textContent = tempToFahrenheit(tempToCelsius(weatherData.main.temp));
+  let icon = data.weather.icon;
+  icon.innerHTML = "src='https://openweathermap.org/img/wn/`${icon}`.png'";
+};
+
 
 //CONVERSION FUNCTIONS
 function tempToCelsius(kelvin) {
