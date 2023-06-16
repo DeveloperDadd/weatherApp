@@ -15,15 +15,17 @@ let apipath = "/data/2.5/weather";
 button.addEventListener('click', updateUI); //This event listener also needs to update page by GET weather using AXIOS, will need to update upon API fetch
 userInput.addEventListener('keypress', (event) => {
   if(event.key === "Enter") {
-    return updateUI;
+    updateUI();
   }
 });
 //FUNCTIONS 
 
 //MAIN FUNCTION TO UPDATE PAGE:
 async function updateUI() {
-  weatherData = await getWeatherData();
-  updateText;
+  const weatherData = await getWeatherData();
+  if (weatherData) {
+    updateText(weatherData)
+  }
 }
 
 function checkZipcode() {
@@ -74,7 +76,7 @@ function updateText() {
   celsius.textContent = tempToCelsius(weatherData.main.temp);
   fahrenheit.textContent = tempToFahrenheit(tempToCelsius(weatherData.main.temp));
   let icon = data.weather.icon;
-  icon.innerHTML = "src='https://openweathermap.org/img/wn/`${icon}`.png'";
+  iconDisplay.innerHTML = `<img src="https://openweathermap.org/img/wn/${icon}.png">`;
 };
 
 
