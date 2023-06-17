@@ -1,12 +1,9 @@
-let app = document.GetElementById('app');
 let apiKey = 'c097438b59289f230ebfc5b099c90073';
 let apiURL = 'https://api.openweathermap.org';
 let apiPath = '/data/2.5/weather'
-let getWeatherButton = document.getElementById("getWeatherButton");
-let userInput;
 
 window.addEventListener('load', init);
-getWeatherButton.addEventListener('click', getWeatherData);
+
   
 function init () {
   app = document.getElementById("app");
@@ -22,10 +19,11 @@ function init () {
   userInput.setAttribute("placeholder", "Enter a valid zipcode");
   headerBox.appendChild(userInput);
   
-  getWeatherButton = document.createElement("button");
+  let getWeatherButton = document.createElement("button");
   getWeatherButton.textContent = "Get Weather";
   getWeatherButton.setAttribute("id", "getWeatherButton");
   headerBox.appendChild(getWeatherButton);
+  getWeatherButton.addEventListener('click', getWeatherData);
   
   let resultsBox = document.createElement("div");
   resultsBox.setAttribute("id", "resultsBox");
@@ -38,7 +36,7 @@ let weatherDisplay = {
   boxHeadingText : ['City', 'Temperature', 'Other Info'],
   cityResultText : '',
   temperatureClassNames : ['Kelvin', 'Celsius', 'Fahrenheit'],
-  temperatureResultText : '',
+  temperatureResultText : '', //return data from the function 
   otherInfoIcon: ''
 };
 
@@ -46,15 +44,16 @@ let weatherDisplay = {
 //This function creates the 3 boxes in the display box
 function createBoxes() {
 
-  for (let i = 0; i <= 2; i++) {
+  for (let i = 0; i < 2; i++) {
     let boxHeading = document.createElement("h2");
     boxHeading.textContent = weatherDisplay.boxHeadingText[i];
     boxHeading.classList.add(weatherDisplay.boxHeadingText[i]); //When i comment this out it returns the other info heading correctly? 
     app.appendChild(boxHeading);
     
     if (i === 1) {
+      boxHeading.textContent = weatherDisplay.boxHeadingText[i];
+      boxHeading.classList.add(weatherDisplay.boxHeadingText[i]);
       for (let j = 0; j <=2; j++) {
-      boxHeading.classList.add(weatherDisplay.boxHeadingText[i])
       let dataBox = document.createElement("p");
       dataBox.classList.add("databox");   dataBox.classList.add(weatherDisplay.temperatureClassNames[j]);
       boxHeading.appendChild(dataBox);
@@ -67,32 +66,34 @@ function createBoxes() {
 
 
 function getWeatherData() {
-  let userZipcode = document.getElementById("userInput").value; 
+  weatherData = {};
   axios
     .get (
-      `http://api.openweathermap.org/data/2.5/weather?zip=${userZipcode}&appid=${apiKey}`
+      `http://api.openweathermap.org/data/2.5/weather?zip=${userInput}&appid=${apiKey}`
     )
   
     .then((response) => {
     let data = response.data;
     console.log(data);
-  });
-  
-    catch((error) => {
+    let weatherData = data;
+    return weatherData;
+    })
+
+    .catch((error) => {
       console.log(error);
       alert("Error: please enter valid zipcode");
-    });
+    })
   
-    .finally(() => {
+    .finally (() => {
       console.log("Get Weather Data function complete");
-    });
+    })
     
 } 
 
 
 function updateWeatherBoxes () {
-  document.getElementByClassName('city').innerText = data.name;
-  document.getElementByClasName('kelvin').innerText= data.main.temp;
+  document.getElementByClassName('city').innerText = weatherData.name;
+  document.getElementByClasName('kelvin').innerText= weatherData.main.temp;
   document.getElementByClassName('celsius').innerText = tempToCelsius();
   document.getElementByClassName('fahrenheit').innerText = tempToFahrenheit();
 }
