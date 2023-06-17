@@ -1,90 +1,104 @@
-//VARIABLES
 let apiKey = 'c097438b59289f230ebfc5b099c90073';
-let button = document.getElementById('getWeatherBtn');
-let zipcodeInput = document.getElementById("zipcode");
-let cityDisplay = document.getElementById("cityDisplay");
-let celsius = document.getElementById("celsius");
-let fahrenheit = document.getElementById("fahrenheit");
-let kelvin = document.getElementById("kelvin");
-let icon = document.getElementById("iconDisplay");
-const apiURL = "https://api.openweathermap.org";
-let apipath = "/data/2.5/weather";
+let apiURL = 'https://api.openweathermap.org';
+let apiPath = '/data/2.5/weather'
+
+window.addEventListener('load', init);
+
+  
+function init () {
+  app = document.getElementById("app");
+  let headerBox = document.createElement("div");
+  headerBox.setAttribute("id", "headerBox")
+  app.appendChild(headerBox);
+  
+  let mainHeading = document.createElement("h1");
+  mainHeading.textContent = "Weather App";
+  headerBox.appendChild(mainHeading);
+  
+  userInput = document.createElement("input");
+  userInput.setAttribute("placeholder", "Enter a valid zipcode");
+  headerBox.appendChild(userInput);
+  
+  let getWeatherButton = document.createElement("button");
+  getWeatherButton.textContent = "Get Weather";
+  getWeatherButton.setAttribute("id", "getWeatherButton");
+  headerBox.appendChild(getWeatherButton);
+  getWeatherButton.addEventListener('click', getWeatherData);
+  
+  let resultsBox = document.createElement("div");
+  resultsBox.setAttribute("id", "resultsBox");
+  app.appendChild(resultsBox);
+  
+  createBoxes();
+}
+
+let weatherDisplay = {
+  boxHeadingText : ['City', 'Temperature', 'Other_Info'],
+  cityResultText : '',
+  temperatureClassNames : ['Kelvin', 'Celsius', 'Fahrenheit'],
+  temperatureResultText : '', //return data from the function 
+};
 
 
-//EVENT LISTENERS
-button.addEventListener('click', updateUI); //This event listener also needs to update page by GET weather using AXIOS, will need to update upon API fetch
-userInput.addEventListener('keypress', (event) => {
-  if(event.key === "Enter") {
-    updateUI();
-  }
-});
-//FUNCTIONS 
-
-//MAIN FUNCTION TO UPDATE PAGE:
-async function updateUI() {
-  const weatherData = await getWeatherData();
-  if (weatherData) {
-    updateText(weatherData)
+//This function creates the 3 boxes in the display box
+function createBoxes() {
+  for (let i = 0; i <= 2; i++) {
+    let boxHeading = document.createElement("h2");
+    boxHeading.textContent = weatherDisplay.boxHeadingText[i];
+    boxHeading.classList.add(weatherDisplay.boxHeadingText[i]);
+    resultsBox.appendChild(boxHeading);
+    
+    if (i === 1) {
+      boxHeading.textContent = weatherDisplay.boxHeadingText[i];
+      boxHeading.classList.add(weatherDisplay.boxHeadingText[i]);
+      for (let j = 0; j <=2; j++) {
+      let dataBox = document.createElement("p");
+      dataBox.classList.add("databox");   
+      dataBox.classList.add(weatherDisplay.temperatureClassNames[j]);
+      boxHeading.appendChild(dataBox);
+      }
+    } 
   }
 }
 
-function checkZipcode() {
-  let zipcode = zipcodeInput.value;
-  if (zipcode.length !== 5) {
-    alert('Error: please enter valid zipcode');
-  } else {
-      console.log('valid zip code, now GET data')
-      return zipcode;
-  }
-};
-
-// Make a request from the weather API using base url, zipcode, and apikey
-
+//Function to get weather data
 function getWeatherData() {
-  let weatherData = null
-  let zipcode = checkZipcode();
-  if (zipcode) {
-    let options = {
-      baseURL: apiURL,
-      params: {
-      zip: zipcode,
-      appid: apiKey
-    }
-  };
-  axios.get(apipath, options)
-    .then(response => {
-      let data = response.data;
-      console.log(data);
-      weatherData = data;
-      return weatherData;
+  weatherData = {};
+  axios
+    .get (
+      `http://api.openweathermap.org/data/2.5/weather?zip=${userInput}&appid=${apiKey}`
+    )
+  
+    .then((response) => {
+    let data = response.data;
+    console.log(data);
+    let weatherData = data;
+    return weatherData;
     })
-    .catch(error => {
-      //returns an error if there is one
-      alert('Error: invalid zipcode, could not fetch request. Please enter a valid zipcode');
-      console.log("Error in the API call, need to debug");
+
+    .catch((error) => {
+      console.log(error);
+      alert("Error: please enter valid zipcode");
     })
-    .finally(() => {
-      console.log(weatherData);
-    });
-  }
-};
-
-// update HTML elements accordingly
-function updateText() {
-  cityDisplay.textcontent = weatherData.name;
-  kelvin.textContent = weatherData.main.temp;
-  celsius.textContent = tempToCelsius(weatherData.main.temp);
-  fahrenheit.textContent = tempToFahrenheit(tempToCelsius(weatherData.main.temp));
-  let icon = data.weather.icon;
-  iconDisplay.innerHTML = `<img src="https://openweathermap.org/img/wn/${icon}.png">`;
-};
+  
+    .finally (() => {
+      console.log("Get Weather Data function complete");
+    })
+    
+} 
 
 
-//CONVERSION FUNCTIONS
+function updateWeatherBoxes () {
+  document.getElementByClassName('city').innerText = weatherData.name;
+  document.getElementByClasName('kelvin').innerText= weatherData.main.temp;
+  document.getElementByClassName('celsius').innerText = tempToCelsius();
+  document.getElementByClassName('fahrenheit').innerText = tempToFahrenheit();
+}
+
 function tempToCelsius(kelvin) {
     return kelvin - 273.15;
-};
+}
 
 function tempToFahrenheit(celsius) {
   return (celsius * 9 / 5) + 32;   
-};
+}
