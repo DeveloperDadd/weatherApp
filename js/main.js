@@ -33,17 +33,15 @@ function init () {
 }
 
 let weatherDisplay = {
-  boxHeadingText : ['City', 'Temperature', 'Other Info'],
+  boxHeadingText : ['City', 'Temperature', 'Other_Info'],
   cityResultText : '',
   temperatureClassNames : ['Kelvin', 'Celsius', 'Fahrenheit'],
   temperatureResultText : '', //return data from the function 
-  otherInfoIcon: ''
 };
 
 
 //This function creates the 3 boxes in the display box
 function createBoxes() {
-
   for (let i = 0; i <= 2; i++) {
     let boxHeading = document.createElement("h2");
     boxHeading.textContent = weatherDisplay.boxHeadingText[i];
@@ -55,7 +53,8 @@ function createBoxes() {
       boxHeading.classList.add(weatherDisplay.boxHeadingText[i]);
       for (let j = 0; j <=2; j++) {
       let dataBox = document.createElement("p");
-      dataBox.classList.add("databox");   dataBox.classList.add(weatherDisplay.temperatureClassNames[j]);
+      dataBox.classList.add("databox");   
+      dataBox.classList.add(weatherDisplay.temperatureClassNames[j]);
       boxHeading.appendChild(dataBox);
       }
     } 
