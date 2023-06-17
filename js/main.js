@@ -16,6 +16,7 @@ function init () {
   headerBox.appendChild(mainHeading);
   
   userInput = document.createElement("input");
+  userInput.setAttribute("id", "userInput");
   userInput.setAttribute("placeholder", "Enter a valid zipcode");
   headerBox.appendChild(userInput);
   
@@ -62,11 +63,12 @@ function createBoxes() {
 }
 
 //Function to get weather data
-function getWeatherData() {
+async function getWeatherData() {
+  let zipcode = userInput.value;
   weatherData = {};
   axios
     .get (
-      `http://api.openweathermap.org/data/2.5/weather?zip=${userInput}&appid=${apiKey}`
+      `http://api.openweathermap.org/data/2.5/weather?zip=${zipcode}&appid=${apiKey}`
     )
   
     .then((response) => {
@@ -74,6 +76,7 @@ function getWeatherData() {
     console.log(data);
     let weatherData = data;
     return weatherData;
+
     })
 
     .catch((error) => {
