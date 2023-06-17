@@ -65,9 +65,6 @@ function createBoxes() {
 //Function to get weather data
 async function getWeatherData() {
   let zipcode = userInput.value;
-  console.log(userInput);
-  console.log(userInput.value);
-  console.log(zipcode);
   weatherData = {};
   axios
     .get (
