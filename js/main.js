@@ -44,11 +44,11 @@ let weatherDisplay = {
 //This function creates the 3 boxes in the display box
 function createBoxes() {
 
-  for (let i = 0; i < 2; i++) {
+  for (let i = 0; i <= 2; i++) {
     let boxHeading = document.createElement("h2");
     boxHeading.textContent = weatherDisplay.boxHeadingText[i];
-    boxHeading.classList.add(weatherDisplay.boxHeadingText[i]); //When i comment this out it returns the other info heading correctly? 
-    app.appendChild(boxHeading);
+    boxHeading.classList.add(weatherDisplay.boxHeadingText[i]);
+    resultsBox.appendChild(boxHeading);
     
     if (i === 1) {
       boxHeading.textContent = weatherDisplay.boxHeadingText[i];
@@ -63,8 +63,6 @@ function createBoxes() {
 }
 
 //Function to get weather data
-
-
 function getWeatherData() {
   weatherData = {};
   axios
