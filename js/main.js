@@ -6,7 +6,7 @@ window.addEventListener('load', init);
 
   
 function init () {
-  app = document.getElementById("app");
+  const app = document.getElementById("app");
   let headerBox = document.createElement("div");
   headerBox.setAttribute("id", "headerBox")
   app.appendChild(headerBox);
@@ -24,7 +24,7 @@ function init () {
   getWeatherButton.textContent = "Get Weather";
   getWeatherButton.setAttribute("id", "getWeatherButton");
   headerBox.appendChild(getWeatherButton);
-  getWeatherButton.addEventListener('click', getWeatherData);
+  getWeatherButton.addEventListener('click', updateUI);
   
   let resultsBox = document.createElement("div");
   resultsBox.setAttribute("id", "resultsBox");
@@ -43,7 +43,7 @@ let weatherDisplay = {
 
 //This function creates the 3 boxes in the display box
 function createBoxes() {
-  for (let i = 0; i <= 2; i++) {
+  for (let i = 0; i < 3; i++) {
     let boxHeading = document.createElement("h2");
     boxHeading.textContent = weatherDisplay.boxHeadingText[i];
     boxHeading.classList.add(weatherDisplay.boxHeadingText[i]);
@@ -62,21 +62,27 @@ function createBoxes() {
   }
 }
 
+async function updateUI() {
+  console.log('hello world');
+  weatherData = await getWeatherData();
+  console.log(weatherData);
+  updateWeatherBoxes();
+}
+
 //Function to get weather data
 async function getWeatherData() {
   let zipcode = userInput.value;
   weatherData = {};
   axios
     .get (
-      `http://api.openweathermap.org/data/2.5/weather?zip=${zipcode}&appid=${apiKey}`
+      `https://api.openweathermap.org/data/2.5/weather?zip=${zipcode}&appid=${apiKey}`
     )
   
     .then((response) => {
     let data = response.data;
-    console.log(data);
     let weatherData = data;
+    console.log(weatherData);
     return weatherData;
-
     })
 
     .catch((error) => {
