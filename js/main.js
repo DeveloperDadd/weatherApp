@@ -64,7 +64,7 @@ function createBoxes() {
 
 async function updateUI() {
   console.log('hello world');
-  weatherData = await getWeatherData();
+  await getWeatherData();
   console.log(weatherData);
   updateWeatherBoxes();
 }
@@ -81,7 +81,6 @@ async function getWeatherData() {
     .then((response) => {
     let data = response.data;
     let weatherData = data;
-    console.log(weatherData);
     return weatherData;
     })
 
