@@ -1,6 +1,6 @@
 let apiKey = 'c097438b59289f230ebfc5b099c90073';
 let apiURL = 'https://api.openweathermap.org';
-let apiPath = '/data/2.5/weather'
+let apiPath = '/data/2.5/weather';
 
 window.addEventListener('load', init);
 
@@ -62,45 +62,42 @@ function createBoxes() {
   }
 }
 
-async function updateUI() {
-  console.log('hello world');
-  await getWeatherData();
-  console.log(weatherData);
-  updateWeatherBoxes();
+function updateUI() {
+  getWeatherData();
 }
 
 //Function to get weather data
+let weatherData = {};
 async function getWeatherData() {
-  let zipcode = userInput.value;
-  weatherData = {};
-  axios
-    .get (
-      `https://api.openweathermap.org/data/2.5/weather?zip=${zipcode}&appid=${apiKey}`
-    )
+  let options = {
+    method: 'get',
+    baseURL: apiURL,
+    params: {
+      zip: userInput.value,
+      appid: apiKey,
+    }
+  };
+  try {
+    await axios
+      .get(apiPath, options)
+      .then(function (response) {
+        return response.data;
+      })
+      .then(function (data) {
+        weatherData = data;
+        updateWeatherBoxes();
+      })
+  } catch(error) {
+     alert("Error: please enter a valid zipcode");
+  }
   
-    .then((response) => {
-    let data = response.data;
-    let weatherData = data;
-    return weatherData;
-    })
-
-    .catch((error) => {
-      console.log(error);
-      alert("Error: please enter valid zipcode");
-    })
-  
-    .finally (() => {
-      console.log("Get Weather Data function complete");
-    })
-    
-} 
-/* */
+}
 
 function updateWeatherBoxes () {
-  document.getElementByClassName('city').innerText = weatherData.name;
-  document.getElementByClasName('kelvin').innerText= weatherData.main.temp;
-  document.getElementByClassName('celsius').innerText = tempToCelsius();
-  document.getElementByClassName('fahrenheit').innerText = tempToFahrenheit();
+  document.getElementsByClassName('City').innerText = data.name;
+  document.getElementsByClassName('Kelvin').innerText= data.main.temp;
+  document.getElementsByClassName('Celsius').innerText = tempToCelsius(data.main.temp);
+  document.getElementsByClassName('Fahrenheit').innerText = tempToFahrenheit(data.main.temp);
 }
 
 function tempToCelsius(kelvin) {
