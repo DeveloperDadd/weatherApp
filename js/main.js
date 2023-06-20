@@ -94,7 +94,7 @@ async function getWeatherData() {
     })
     
 } 
-
+/* */
 
 function updateWeatherBoxes () {
   document.getElementByClassName('city').innerText = weatherData.name;
